@@ -3,7 +3,7 @@ package com.felisilv.bank.customer.models;
 import lombok.Data;
 
 @Data
-public class CustomerDTO {
+public class CustomerRequest {
 
   private String firstName;
 

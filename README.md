@@ -20,7 +20,7 @@ Maybe we can add Domain Driven Design to this discussion and Eric Evans recommen
 ### Phase 1:
 - Bank application created with
   - create customer
-  - create savings and curret account
+  - create savings and current account
 
 ### Phase 2:
 - Implement customer Id verification for account creation

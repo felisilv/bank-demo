@@ -25,9 +25,9 @@ public class Customer {
   private String lastName;
 
 
-  public Customer(CustomerDTO customerDTO) {
-    firstName = customerDTO.getFirstName();
-    lastName = customerDTO.getLastName();
+  public Customer(CustomerRequest customerRequest) {
+    firstName = customerRequest.getFirstName();
+    lastName = customerRequest.getLastName();
   }
 
 }

@@ -2,7 +2,7 @@ package com.felisilv.bank.customer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.felisilv.bank.customer.models.Customer;
-import com.felisilv.bank.customer.models.CustomerDTO;
+import com.felisilv.bank.customer.models.CustomerRequest;
 import com.felisilv.bank.customer.utils.CustomerUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.felisilv.bank.customer.utils.CustomerUtils.defaultCustomer;
+import static com.felisilv.bank.customer.utils.CustomerUtils.getCustomerResponseJson;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -37,16 +39,16 @@ public class CustomerControllerTest {
 
   @Test
   public void shouldDelegateCustomerCreationToServiceLayer() throws Exception {
-    CustomerDTO customerDTO = CustomerUtils.defaultCustomerDTO();
-    Customer createdCustomer = new Customer();
-    createdCustomer.setId(1L);
+    CustomerRequest customerRequest = CustomerUtils.defaultCustomerRequest();
+    Customer createdCustomer = defaultCustomer();
+    String customerResponseJson = getCustomerResponseJson();
     when(customerServiceMock.createCustomer(any(Customer.class))).thenReturn(createdCustomer);
 
     mvc.perform(MockMvcRequestBuilders.post(CUSTOMER_URI)
-            .content(mapper.writeValueAsString(customerDTO))
+            .content(mapper.writeValueAsString(customerRequest))
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().string("1"));
+            .andExpect(content().string(customerResponseJson));
 
     verify(customerServiceMock, times(1)).createCustomer(any(Customer.class));
   }

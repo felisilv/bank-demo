@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 @MappedSuperclass
 @Getter
@@ -22,7 +21,5 @@ public abstract class Account {
 
   @NotNull
   private Long customerId;
-
-  private BigDecimal balance;
 
 }

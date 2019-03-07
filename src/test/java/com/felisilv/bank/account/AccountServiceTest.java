@@ -46,13 +46,13 @@ public class AccountServiceTest {
   @Test
   public void shouldSaveToRepositoryOnCreateSavingsAccount() {
     SavingsAccount savingsAccount = AccountUtils.getDefaultSavingsAccount();
-    SavingsAccount returnedsavingsAccount = AccountUtils.getDefaultSavingsAccount();
-    when(accountRepositoryMock.save(any(SavingsAccount.class))).thenReturn(returnedsavingsAccount);
+    SavingsAccount returnedSavingsAccount = AccountUtils.getDefaultSavingsAccount();
+    when(accountRepositoryMock.save(any(SavingsAccount.class))).thenReturn(returnedSavingsAccount);
 
     Account createdAccount = accountService.createAccount(savingsAccount);
 
     assertThat(createdAccount).isNotNull();
-    assertThat(createdAccount.getId()).isEqualTo(returnedsavingsAccount.getId());
+    assertThat(createdAccount.getId()).isEqualTo(returnedSavingsAccount.getId());
     verify(accountRepositoryMock, times(1)).save(any(SavingsAccount.class));
   }
 
