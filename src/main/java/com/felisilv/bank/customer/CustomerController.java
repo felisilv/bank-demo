@@ -1,7 +1,8 @@
 package com.felisilv.bank.customer;
 
 import com.felisilv.bank.customer.models.Customer;
-import com.felisilv.bank.customer.models.CustomerDTO;
+import com.felisilv.bank.customer.models.CustomerRequest;
+import com.felisilv.bank.customer.models.CustomerResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,9 +15,13 @@ class CustomerController {
   private final CustomerService customerService;
 
   @PostMapping("customer")
-  Long createCustomer(@RequestBody CustomerDTO customerDTO) {
-    Customer customer = new Customer(customerDTO);
-    return customerService.createCustomer(customer).getId();
+  CustomerResponse createCustomer(@RequestBody CustomerRequest customerRequest) {
+    Customer customer = new Customer(customerRequest);
+    Long customerId = customerService.createCustomer(customer).getId();
+    CustomerResponse customerResponse = new CustomerResponse();
+    customerResponse.setCustomerId(customerId);
+
+    return customerResponse;
   }
 
 }

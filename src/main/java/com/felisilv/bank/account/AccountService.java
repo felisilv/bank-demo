@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Service
 @RequiredArgsConstructor
@@ -14,7 +15,7 @@ class AccountService {
 
   private final AccountRepository accountRepository;
 
-  Account createAccount(@Valid Account account) {
+  Account createAccount(@Valid @NotNull Account account) {
     return accountRepository.save(account);
   }
 

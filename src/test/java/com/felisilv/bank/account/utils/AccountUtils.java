@@ -1,18 +1,22 @@
 package com.felisilv.bank.account.utils;
 
-import com.felisilv.bank.account.models.AccountDTO;
-import com.felisilv.bank.account.models.AccountType;
-import com.felisilv.bank.account.models.CurrentAccount;
-import com.felisilv.bank.account.models.SavingsAccount;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.felisilv.bank.account.models.*;
 
 public class AccountUtils {
+
+  public static final long CURRENT_ACCOUNT_ID = 1L;
+  public static final long SAVINGS_ACCOUNT_ID = 3L;
+
+  private static final ObjectMapper MAPPER = new ObjectMapper();
 
   private AccountUtils() {
   }
 
   public static CurrentAccount getDefaultCurrentAccount() {
     CurrentAccount currentAccount = new CurrentAccount();
-    currentAccount.setId(1L);
+    currentAccount.setId(CURRENT_ACCOUNT_ID);
     currentAccount.setCustomerId(2L);
 
     return currentAccount;
@@ -20,25 +24,32 @@ public class AccountUtils {
 
   public static SavingsAccount getDefaultSavingsAccount() {
     SavingsAccount savingsAccount = new SavingsAccount();
-    savingsAccount.setId(3L);
+    savingsAccount.setId(SAVINGS_ACCOUNT_ID);
     savingsAccount.setCustomerId(4L);
 
     return savingsAccount;
   }
 
-  public static AccountDTO getDefaultCurrentAccountDTO() {
-    AccountDTO accountDTO = new AccountDTO();
-    accountDTO.setCustomerId(5L);
-    accountDTO.setType(AccountType.CURRENT);
+  public static AccountRequest getDefaultCurrentAccountRequest() {
+    AccountRequest accountRequest = new AccountRequest();
+    accountRequest.setCustomerId(5L);
+    accountRequest.setType(AccountType.CURRENT);
 
-    return accountDTO;
+    return accountRequest;
   }
 
-  public static AccountDTO getDefaultSavingsAccountDTO() {
-    AccountDTO accountDTO = new AccountDTO();
-    accountDTO.setCustomerId(6L);
-    accountDTO.setType(AccountType.SAVINGS);
+  public static AccountRequest getDefaultSavingsAccountRequest() {
+    AccountRequest accountRequest = new AccountRequest();
+    accountRequest.setCustomerId(6L);
+    accountRequest.setType(AccountType.SAVINGS);
 
-    return accountDTO;
+    return accountRequest;
+  }
+
+  public static String getAccountResponseJson(long accountId) throws JsonProcessingException {
+    AccountResponse accountResponse = new AccountResponse();
+    accountResponse.setAccountId(accountId);
+
+    return MAPPER.writeValueAsString(accountResponse);
   }
 }
